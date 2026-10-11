@@ -11,23 +11,26 @@ int main(int argc, char **argv) {
     char buffer[1024];
 
     // borrar FIFO por si existiera previamente
-    unlink(X1);
+    unlink("tuberia");
 
     /* crear el FIFO */
-    if (mkfifo(X2)<0) {
+    if (mkfifo("tuberia", 0666)<0) {
         perror("No puede crearse el FIFO");
         return(1);
     }
     /* Abrir el FIFO */
-    if (X3) {
+    if ((fd=open("tuberia",O_RDONLY))<0) {
         perror("No puede abrirse el FIFO");
         return(1);
+		//Guarda -1 en fd como resultado de no aberse ejecutado "bien"
     }
     /* Leer de la FIFO */
-    while (X4) {
+    while (read(fd, buffer, sizeof(buffer)) > 0) {
 	// X5: Imprimir el texto en la pantalla
+	printf("%s", buffer);
     }
-    close(X5);
-    unlink(X6);
+    close(fd); //la funcion close recibe un entero como parametro, asi que se le pasa fd
+	//TABLA DE DESCRIPTORES DE ARCHIVO, libera el que ocupe fd
+    unlink("tuberia"); //eliminar el archivo tuberia
     return(0);
 }
