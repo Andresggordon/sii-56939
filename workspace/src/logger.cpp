@@ -14,7 +14,7 @@ int main(int argc, char **argv) {
     unlink("tuberia");
 
     /* crear el FIFO */
-    if (mkfifo("tuberia", 0666)<0) {
+    if (mkfifo("tuberia", 0666)<0) { //
         perror("No puede crearse el FIFO");
         return(1);
     }

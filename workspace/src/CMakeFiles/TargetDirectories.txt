@@ -1,0 +1,5 @@
+/home/andresggordon/LAB_SII/laboratorio-sii/56939/sii-56939/workspace/src/CMakeFiles/tenis.dir
+/home/andresggordon/LAB_SII/laboratorio-sii/56939/sii-56939/workspace/src/CMakeFiles/logger.dir
+/home/andresggordon/LAB_SII/laboratorio-sii/56939/sii-56939/workspace/src/CMakeFiles/bot.dir
+/home/andresggordon/LAB_SII/laboratorio-sii/56939/sii-56939/workspace/src/CMakeFiles/edit_cache.dir
+/home/andresggordon/LAB_SII/laboratorio-sii/56939/sii-56939/workspace/src/CMakeFiles/rebuild_cache.dir

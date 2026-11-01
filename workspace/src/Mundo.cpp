@@ -12,6 +12,7 @@
 
 #include <fcntl.h> //libreria de control de archivos
 #include <unistd.h>
+#include <sys/mman.h>
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -161,6 +162,21 @@ void CMundo::OnTimer(int value)
 	{
 		exit(0);
 	}
+	
+	//Actualizar los campos de DatosMemoriaCompartida e invocar el OnKeyboardDown()
+	datosmemcompartida->esfera = esfera;
+	datosmemcompartida->raqueta1 = jugador1;
+	
+	if(datosmemcompartida->accion == 1){
+		OnKeyboardDown('w',0,0);
+		
+	} else if(datosmemcompartida->accion == -1){
+		OnKeyboardDown('s',0,0);
+	
+	} else {
+		jugador1.velocidad.y = 0;
+	
+	}
 
 }
 
@@ -211,6 +227,22 @@ void CMundo::Init()
 	
 	//Abrir la tubería
 	fd = open("tuberia", O_WRONLY);
+	
+	//Crear  abrir y ftrunc del fichero dedicado a la memoria compartida para el bot "mem_comp_bot""
+	fd_bot = open("mem_comp_bot", O_RDWR|O_CREAT, 0666);
+	ftruncate(fd_bot, sizeof(DatosMemCompartida));
+	datosmemcompartida = (DatosMemCompartida*)mmap(NULL, sizeof(DatosMemCompartida), PROT_READ|PROT_WRITE, MAP_SHARED, fd_bot, 0);
+	
+	
+	
+	
+	//Comprobar si se puiede abrir y la tubería da un error
+	/*
+	if(fd=open("tuberia", O_WRONLY) < 0){
+		perror("No se pudo abrir la tubería");
+	}
+	
+	*/
 	
 	puntos1 = 0;
 	puntos2=0;
